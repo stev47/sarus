@@ -1,6 +1,6 @@
-# Sarus, a humble spaced repitition system
+# Sarus, a humble spaced repetition system
 
-Sarus might someday become a simple but effective modern web-based spaced repitition system.
+Sarus might someday become a simple but effective modern web-based spaced repetition system.
 
 ## Getting started
 
