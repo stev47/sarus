@@ -5,3 +5,7 @@ Sarus might someday become a simple but effective modern web-based spaced repeti
 ## Getting started
 
 Currently: figure it out on your own.
+
+## License
+
+GPLv3
