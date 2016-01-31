@@ -1,0 +1,24 @@
+{
+  "name": "sarus",
+  "version": "1.0.0",
+  "dependencies": {
+    "ajar": "^0.1.0",
+    "bluebird": "^2.9.34",
+    "body-parser": "^1.14.2",
+    "express": "^4.13.3",
+    "jade": "^1.11.0",
+    "mongodb": "^2.0.42",
+    "normalize.css": "^3.0.3",
+    "sqlite3": "^3.1.1",
+    "yargs": "^3.32.0"
+  },
+  "description": "todo",
+  "repository": "http://",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Stephan Hilb",
+  "license": "GPLv3"
+}

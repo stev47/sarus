@@ -1,0 +1,69 @@
+/* General */
+
+* {
+  box-sizing: border-box;
+}
+
+button {
+  padding: 0.3em 0.7em;
+}
+
+/* colortheme specific */
+
+body {
+  background: #202020;
+  color: #e2e2e5;
+}
+
+button {
+  background: #000;
+  border: 1px solid #555;
+  border-radius: 0.2rem;
+  &:hover {
+    background: #222;
+  }
+  &:active {
+    background: #228;
+  }
+  &:disabled {
+    background: #222;
+    color: #999;
+  }
+}
+
+/* Content */
+
+#container {
+  width: 100%;
+  max-width: 40rem;
+  margin: auto;
+}
+
+#card {
+  margin-top: 1rem;
+  padding: 0.8em;
+  border: 1px solid #555;
+  border-radius: 1rem;
+
+  text-align: center;
+  font-size: 2.5rem;
+
+  background: #202028;
+  &.seed {
+    background: #202520;
+  }
+
+  & div {
+    padding: 0.2em;
+  }
+
+  & .a {
+    margin-top: 1em;
+    visibility: hidden;
+    border: 1px dashed #555;
+  }
+  &.answer .a {
+    visibility: visible;
+  }
+}
+
