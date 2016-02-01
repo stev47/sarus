@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
         for(var x of $all('#up, #down')) {
             x.setAttribute('disabled', 'disabled')
         }
-        ajar.post(`/cards/${card.n}/review`, {value: -1})
+        ajar.post(`/cards/${card.n}/review`, {value: value})
             .then(reviewmode)
     }
     var answer = () => {
