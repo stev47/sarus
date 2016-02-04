@@ -44,7 +44,7 @@ mongo.MongoClient.connectAsync(config.dbconstr).then((db) => {
         var dt = Math.max(Math.min(((new Date()).getTime() - card.data.t), maxdt), mindt) / dayms
 
         if (Math.sign((card.data.r + value) * value) < 0) {
-            card.data.r *= Math.pow(2, value)
+            card.data.r /= Math.pow(2, Math.abs(value))
         } else {
             card.data.r += value;
         }
