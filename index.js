@@ -48,7 +48,10 @@ mongo.MongoClient.connectAsync(config.dbconstr).then((db) => {
             card.data.r += value;
         }
 
-        card.data.a = Math.pow(2, -card.data.r)
+        // sensible values: 1 < x, default: 1.3
+        var distinction = 1.3
+
+        card.data.a = Math.pow(distinction, -card.data.r)
         card.data.b = 3/(24*60) * (1 / dt)
         card.data.t = (new Date()).getTime()
 
