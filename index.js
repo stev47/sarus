@@ -36,8 +36,7 @@ mongo.MongoClient.connectAsync(config.dbconstr).then((db) => {
     }
 
     function review (card, value) {
-        if (!card.data)
-            seed(card)
+        if (!card.data) return false
 
         var maxdt = 7 * dayms
         var mindt = 60 * 1000
@@ -119,25 +118,9 @@ mongo.MongoClient.connectAsync(config.dbconstr).then((db) => {
                     ] },
                 } },
                 { $project: {
-                    r: true,
-                    a: true,
-                    b: true,
-                    c: true,
-                    td: true,
-                    g: { $subtract: [ { $multiply: ['$a', '$td'] }, '$r' ] },
-                    h: { $subtract: [ '$c', { $multiply: ['$b', { $divide: [1, '$td'] } ] } ] },
-                } },
-                { $project: {
-                    r: true,
-                    a: true,
-                    b: true,
-                    c: true,
-                    td: true,
-                    g: true,
-                    h: true,
                     value: { $add: [
-                        '$g',
-                        '$h',
+                    /* g */ { $subtract: [ { $multiply: ['$a', '$td'] }, '$r' ] },
+                    /* h */ { $subtract: [ '$c', { $multiply: ['$b', { $divide: [1, '$td'] } ] } ] },
                     ] },
                 } },
                 { $match: { value: { $gt: 0 } } },
