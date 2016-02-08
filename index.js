@@ -129,7 +129,7 @@ mongo.MongoClient.connectAsync(config.dbconstr).then((db) => {
                 { $match: { value: { $gt: 0 } } },
                 { $sort: { value: -1 } },
                 // todo: sample 1 from top max(1, 0.1%) ??
-                { $limit: 10 },
+                { $limit: 5 },
                 { $sample: { size: 1 } },
             ], {})
             .then((x) => {
