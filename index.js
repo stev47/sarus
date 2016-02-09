@@ -42,10 +42,11 @@ mongo.MongoClient.connectAsync(config.dbconstr).then((db) => {
         var mindt = 60 * 1000
         var dt = Math.max(Math.min(((new Date()).getTime() - card.data.t), maxdt), mindt) / dayms
 
-        if (Math.sign((card.data.r + value) * value) < 0) {
-            card.data.r /= Math.pow(2, Math.abs(value))
+        var rmulup = card.data.r / Math.pow(2, Math.abs(value))
+        if (value * card.data.r < 0 && Math.abs(card.data.r - rmulup) > Math.abs(value)) {
+            card.data.r = rmulup
         } else {
-            card.data.r += value;
+            card.data.r += value
         }
 
         // sensible values: 1 < x, default: 1.3
