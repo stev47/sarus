@@ -2,11 +2,11 @@
 
 ## Features
 
-- support multiple collections: rename `cards` to `[collection name]` and go
-  from there? we probably only need one collection.
-- support card input through forms (partly figured out)
 - display stats: number of cards: reviewing + new = all
-- where to save parameters? per collection?
+- support multiple collections:
+  per directory, url `/:collection/:path`, server/client js, css?,
+  config for parameters.
+- support card input through forms (partly figured out)
 - ui: add mouse control, use scroll wheel
 
 ## Algorithm
@@ -17,7 +17,8 @@
 - tweak initial `b` value: maybe around `0`?
 
 ## Collections
-- kanji: stroke order
+- <del>kanji: stroke order</del>
+- audio reading using open-jtalk
 - japanese sentences: think about how to do furigana
 
 
