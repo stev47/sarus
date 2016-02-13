@@ -142,6 +142,12 @@ mongo.MongoClient.connectAsync(config.dbconstr).then((db) => {
 
     })
 
+    app.get('/kanji/:char', (req, res) => {
+        var cp = req.params.char.codePointAt(0).toString(16)
+        cp = '0'.repeat(5 - cp.length) + cp
+        res.sendFile(`data/kanjivg/kanji/${cp}.svg`, {root: __dirname})
+    })
+
 
     app.listen(3000)
 

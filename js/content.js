@@ -8,10 +8,58 @@ handler.question = function (card, el) {
     `
 }
 
+function animate (el) {
+  var len = el.getTotalLength()
+  var dur = len / 200 + 0.08
+  el.style.transition = ''
+  el.style.strokeDasharray = `${len} ${len}`
+  el.style.strokeDashoffset = len
+  el.style.visibility = 'visible'
+  el.getBoundingClientRect()
+  el.style.transition = `stroke-dashoffset ${dur}s 0.2s linear`
+  el.style.strokeDashoffset = '0'
+}
+
 handler.answer = function (card, el) {
     el.innerHTML = `
-        <span style="font-size: 2em">${card.a.kanji}</span>
+        <div style="font-size: 2em">${card.a.kanji}</div>
+        <div id="kanji"></div>
     `
+    var req = new XMLHttpRequest()
+    req.onload = (res) => {
+        el.querySelector('#kanji').innerHTML = req.responseText.replace(/^[\s\S]*\]>/,'')
+
+        var cp = card.a.kanji.codePointAt(0).toString(16)
+        cp = '0'.repeat(5 - cp.length) + cp
+
+        var i = 1
+        elpath = document.getElementById(`kvg:${cp}-s${i}`)
+        for (var i = 1; elpath !== null; ++i) {
+          //elpath.style.visibility = 'hidden'
+
+          var elpathnext = document.getElementById(`kvg:${cp}-s${i+1}`)
+          if (!elpathnext) break
+
+          elpath.addEventListener('transitionend', animate.bind(null, elpathnext) )
+          elpath = elpathnext
+        }
+
+        var elpathstart = document.getElementById(`kvg:${cp}-s1`)
+        el.addEventListener('click', () => {
+            for (var elpath of document.querySelectorAll(`path`)) {
+                elpath.style.visibility = 'hidden'
+            }
+
+            animate(elpathstart)
+        })
+
+        //animate(document.getElementById(`kvg:${cp}-s1`))
+
+
+
+    }
+    req.open('GET', `/kanji/${card.a.kanji}`)
+    req.send()
 }
 
 handler.edit = function (card, form, cb) {

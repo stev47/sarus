@@ -67,3 +67,23 @@ button {
   }
 }
 
+
+/* Kanji */
+
+.a {
+  display: flex;
+  & div {
+    flex: 1 0;
+  }
+}
+
+#kanji {
+  path {
+    stroke: #e2e2e5;
+  }
+  text {
+    font-size: 0.55rem;
+    display: none;
+  }
+}
+
