@@ -1,5 +1,6 @@
 node_modules
 
 data
+config.json
 public/js/main.js
 public/css/main.css

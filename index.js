@@ -13,9 +13,7 @@ app.set('views', __dirname + '/views')
 app.use('/css', express.static(__dirname + '/public/css'))
 app.use('/js', express.static(__dirname + '/public/js'))
 
-var config = {
-    dbconstr: 'mongodb://localhost:27017/myjp'
-}
+var config = require('./config.json')
 
 var dayms = 24 * 60 * 60 * 1000
 
