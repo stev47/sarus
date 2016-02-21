@@ -20,5 +20,5 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Stephan Hilb",
-  "license": "GPLv3"
+  "license": "GPL-3.0"
 }
