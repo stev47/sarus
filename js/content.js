@@ -1,4 +1,5 @@
 var formjson = require('./form-json.js')
+var ajar = require('ajar')
 
 var handler = {}
 
@@ -25,8 +26,7 @@ handler.answer = function (card, el) {
         <div style="font-size: 2em">${card.a.kanji}</div>
         <div id="kanji"></div>
     `
-    var req = new XMLHttpRequest()
-    req.onload = (res) => {
+    ajar.get(`/kanji/${card.a.kanji}`).then((req) => {
         el.querySelector('#kanji').innerHTML = req.responseText.replace(/^[\s\S]*\]>/,'')
 
         var cp = card.a.kanji.codePointAt(0).toString(16)
@@ -54,12 +54,7 @@ handler.answer = function (card, el) {
         })
 
         //animate(document.getElementById(`kvg:${cp}-s1`))
-
-
-
-    }
-    req.open('GET', `/kanji/${card.a.kanji}`)
-    req.send()
+    })
 }
 
 handler.edit = function (card, form, cb) {

@@ -2,7 +2,7 @@
   "name": "sarus",
   "version": "1.0.0",
   "dependencies": {
-    "ajar": "^0.1.0",
+    "ajar": "^0.2.0",
     "bluebird": "^2.9.34",
     "body-parser": "^1.14.2",
     "express": "^4.13.3",
