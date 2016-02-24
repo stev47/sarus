@@ -17,8 +17,13 @@
 - tweak initial `b` value: maybe around `0`?
 
 ## Collections
-- <del>kanji: stroke order</del>
-- audio reading using open-jtalk
+
 - japanese sentences: think about how to do furigana
+- <del>kanji: stroke order</del>
+- <del>audio reading using open-jtalk</del>
+- <del>japanese sentences: creation tool using tatoeba</del> not worth it, data is in bad shape
+  http://downloads.tatoeba.org/exports/sentences.tar.bz2
+  http://www.edrdg.org/wiki/index.php?title=Tanaka_Corpus&oldid=613
+  http://downloads.tatoeba.org/exports/jpn_indices.tar.bz2
 
 
