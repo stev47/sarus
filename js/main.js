@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // TODO: don't hide errors thrown in `render` due to clear
     var seedmode = () => {
         ajar.get('/cardseed').then((x) => render(x, true))
             .then(() => {

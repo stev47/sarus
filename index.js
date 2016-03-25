@@ -146,6 +146,21 @@ mongo.MongoClient.connectAsync(config.dbconstr).then((db) => {
         res.sendFile(`data/kanjivg/kanji/${cp}.svg`, {root: __dirname})
     })
 
+    app.get('/voice/:text', (req, res) => {
+        var proc = require('child_process').spawn('open_jtalk',
+            ['-x', '/usr/share/open-jtalk/dic/', '-m', '/usr/share/open-jtalk/voices/nitech_jp_atr503_m001.htsvoice', '-ow', 'data/voice.wav', '-ot', 'data/voice-trace.txt',
+                '-a', '0.58', '-r', '0.9'
+            ]
+        )
+        proc.stdin.write(req.params.text)
+        proc.stdin.write('\n')
+        proc.stdin.end()
+
+        proc.on('close', (ec) => {
+            res.sendFile(`data/voice.wav`, {root: __dirname})
+        })
+    })
+
 
     app.listen(3000)
 
