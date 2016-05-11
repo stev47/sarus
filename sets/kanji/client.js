@@ -1,4 +1,4 @@
-var formjson = require('./form-json.js')
+var formjson = require('../../js/form-json.js')
 var ajar = require('ajar')
 
 var handler = {}
@@ -10,7 +10,7 @@ handler.question = function (card, el) {
     var keyword = card.q.keyword
     el.innerHTML = `
         <span id="keyword">${keyword}</span>
-        <audio id="voice" src="/voice/${jap}"></audio>
+        <audio id="voice" src="/kanji/voice/${jap}"></audio>
     `
 
     el.querySelector('#keyword').addEventListener('click', () => {
@@ -35,7 +35,7 @@ handler.answer = function (card, el) {
         <div style="font-size: 2em">${card.a.kanji}</div>
         <div id="kanji"></div>
     `
-    ajar.get(`/kanji/${card.a.kanji}`).then((req) => {
+    ajar.get(`/kanji/kanji/${card.a.kanji}`).then((req) => {
         el.querySelector('#kanji').innerHTML = req.responseText.replace(/^[\s\S]*\]>/,'')
 
         var cp = card.a.kanji.codePointAt(0).toString(16)

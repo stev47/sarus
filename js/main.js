@@ -1,4 +1,4 @@
-var handler = require('./content.js')
+var handler = require('../sets/kanji/client.js')
 
 var ajar = require('ajar')
 var $ = document.querySelector.bind(document)
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // TODO: don't hide errors thrown in `render` due to clear
     var seedmode = () => {
-        ajar.get('/cardseed').then((x) => render(x, true))
+        ajar.get('/kanji/seed').then((x) => render(x, true))
             .then(() => {
                 $('#up').setAttribute('disabled', 'disabled')
                 $('#down').setAttribute('disabled', 'disabled')
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
             })
     }
     var reviewmode = () => {
-        ajar.get('/cardreview').then((x) => render(x, false))
+        ajar.get('/kanji/next').then((x) => render(x, false))
             .then(() => {
                 $('#right').removeAttribute('disabled')
             }, clear).then(() => {
@@ -52,14 +52,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     var seed = () => {
-        ajar.post(`/cards/${card.n}/seed`)
+        ajar.post(`/kanji/${card.n}/init`)
             .then(seedmode)
     }
     var review = (value) => {
         for(var x of $all('#up, #down')) {
             x.setAttribute('disabled', 'disabled')
         }
-        ajar.post(`/cards/${card.n}/review`, {value: value})
+        ajar.post(`/kanji/${card.n}/update`, {value: value})
             .then(reviewmode)
     }
     var answer = () => {
