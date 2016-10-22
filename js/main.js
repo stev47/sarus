@@ -1,4 +1,4 @@
-var handler = require('../sets/kanji/client.js')
+var handler = require('handler')
 
 var ajar = require('ajar')
 var $ = document.querySelector.bind(document)

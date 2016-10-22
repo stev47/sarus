@@ -3,14 +3,16 @@
   "version": "1.0.0",
   "dependencies": {
     "ajar": "^0.2.0",
-    "bluebird": "^2.9.34",
+    "bluebird": "^3.4.6",
     "body-parser": "^1.14.2",
     "express": "^4.13.3",
     "jade": "^1.11.0",
+    "jszip": "^3.1.3",
     "mongodb": "^2.0.42",
-    "normalize.css": "^3.0.3",
+    "normalize.css": "^5.0.0",
     "sqlite3": "^3.1.1",
-    "yargs": "^3.32.0"
+    "tmp": "0.0.29",
+    "yargs": "^6.3.0"
   },
   "description": "todo",
   "repository": "http://",

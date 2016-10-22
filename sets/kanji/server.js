@@ -1,6 +1,12 @@
 module.exports = function (router) {
 
-    router.get('/kanji/:char', (req, res) => {
+    router.get('/kanji/:char/svg', (req, res) => {
+        var cp = req.params.char.codePointAt(0).toString(16)
+        cp = '0'.repeat(5 - cp.length) + cp
+        res.sendFile(`kanjivg/kanji/${cp}.svg`, {root: __dirname})
+    })
+
+    router.get('/kanji/:char/meaning', (req, res) => {
         var cp = req.params.char.codePointAt(0).toString(16)
         cp = '0'.repeat(5 - cp.length) + cp
         res.sendFile(`kanjivg/kanji/${cp}.svg`, {root: __dirname})

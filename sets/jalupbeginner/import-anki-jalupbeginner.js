@@ -18,37 +18,61 @@ var srczip = fs.readFileAsync(argv._[0]).then(jszip.loadAsync)
 var dbsrc = Promise.join(
     tmp.tmpNameAsync(),
     srczip.call('file', 'collection.anki2').call('async', 'nodebuffer'),
-(file, buffer) => {
-    return fs.writeFileAsync(file, buffer).return(new sqlite.Database(file)).disposer(db => db.close())
+    (file, buffer) => {
+        return fs.writeFileAsync(file, buffer).return(new sqlite.Database(file)).disposer(db => db.close())
+    }
+)
+var mediasrc = srczip.call('file', 'media').call('async', 'string').then(JSON.parse).then((obj) => {
+    var ret = {}
+    for (var key in  obj) {
+        ret[obj[key]] = key
+    }
+    return Promise.resolve(ret)
 })
 
 var db = mongo.MongoClient.connectAsync(config.dbconstr).disposer(db => db.close())
 
-Promise.using(dbsrc, db, (dbsrc, db) => {
+Promise.using(dbsrc, mediasrc, db, (dbsrc, mediasrc, db) => {
 
     var sql = 'select n.flds from cards c left join notes n on c.nid = n.id order by c.due asc, c.nid asc'
 
+    var inserts = [];
     var n = 0
-    dbsrc.each(sql, (err, row) => {
+    return dbsrc.eachAsync(sql, (err, row) => {
         if (err) throw err
 
+        ++n
         var data = row.flds.split('\u001f')
 
-        // TODO: return promise
-        db.collection('jalupbeginner').insert({
-            n: ++n,
+        var filename = mediasrc[data[1].match(/\[sound:([^\]]+)\]/)[1]]
+        var audio = srczip.call('file', filename).call('async', 'nodebuffer').then((buffer) => {
+            return Promise.resolve(new mongo.Binary(buffer))
+        })
+
+        var obj = {
+            n: n,
             q: {
                 sentence: data[0],
             },
             a: {
                 meaning: data[1],
-                reading: data[2]
+                reading: data[2],
+                audio: null,
             },
-        })
+        }
 
-        console.log(data)
+        inserts.push(Promise.join(obj, audio, (obj, audio) => {
+            obj.a.audio = audio
+            console.log(data)
+            console.log(obj)
+            return db.collection('jalupbeginner').insertAsync(obj)
+        }))
+
+    }).then(() => {
+        return Promise.all(inserts)
     })
 
-    //process.exit()
 
+}).then(() => {
+    process.exit()
 })

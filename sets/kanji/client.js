@@ -35,7 +35,7 @@ handler.answer = function (card, el) {
         <div style="font-size: 2em">${card.a.kanji}</div>
         <div id="kanji"></div>
     `
-    ajar.get(`/kanji/kanji/${card.a.kanji}`).then((req) => {
+    ajar.get(`/kanji/kanji/${card.a.kanji}/svg`).then((req) => {
         el.querySelector('#kanji').innerHTML = req.responseText.replace(/^[\s\S]*\]>/,'')
 
         var cp = card.a.kanji.codePointAt(0).toString(16)

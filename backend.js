@@ -4,7 +4,7 @@ module.exports = function (db) {
     var exports = {}
 
     exports.init = (set, card) => {
-        card.data = card.data || {};
+        card.data = card.data || {}
 
         card.data.r = card.data.r || 0
         card.data.a = card.data.a || 1

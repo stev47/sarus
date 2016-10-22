@@ -3,7 +3,12 @@
 
 node-sass -w css/main.scss public/css/main.css &
 
-watchify js/main.js -o public/js/main.js &
+for setdir in sets/*/; do
+  setname=`basename $setdir`
+
+  watchify -r ./sets/$setname/client.js:handler js/main.js -o public/js/${setname}.js &
+done
+
 
 nodemon --ignore '*.svg' index.js &
 

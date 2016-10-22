@@ -2,6 +2,7 @@ var Promise = require('bluebird')
 var express = require('express')
 var bodyParser = require('body-parser')
 var mongo = Promise.promisifyAll(require('mongodb'))
+var fs = Promise.promisifyAll(require('fs'))
 
 
 var app = express()
@@ -11,21 +12,28 @@ app.use(bodyParser.json())
 app.set('view engine', 'jade')
 app.set('views', __dirname + '/views')
 
-app.use('/:set/css', express.static(__dirname + '/public/css'))
-app.use('/:set/js', express.static(__dirname + '/public/js'))
+app.use('/css', express.static(__dirname + '/public/css'))
+app.use('/js', express.static(__dirname + '/public/js'))
 
 var config = require('./config.json')
 
+var sets = fs.readdirAsync('./sets')
+    .filter((file) => fs.statAsync('./sets/' + file).call('isDirectory'))
 
-mongo.MongoClient.connectAsync(config.dbconstr).then((db) => {
 
-    var backend = require('./backend.js')(db)
+var db = mongo.MongoClient.connectAsync(config.dbconstr) //.disposer(db => db.close())
+
+Promise.join(db, sets, (db, sets) => {
 
     console.log('connected to database')
 
-    /* TODO: for each set dir */
+    var backend = require('./backend.js')(db)
+
     var setrouter = express.Router()
-    app.use('/kanji', require('./sets/kanji/server.js')(setrouter))
+
+    sets.forEach((set) => {
+        app.use('/' + set, require('./sets/' + set + '/server.js')(setrouter, db))
+    })
 
     app.get('/:set', (req, res) => {
         res.render('index')
