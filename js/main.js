@@ -1,3 +1,4 @@
+//var Promise = require('bluebird')
 var handler = require('handler')
 
 var ajar = require('ajar')
@@ -20,10 +21,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!ncard) throw new Error('no card')
 
-        handler.question(card, cardel.querySelector('.q'))
-        handler.answer(card, cardel.querySelector('.a'))
+        var q = handler.question(card, cardel.querySelector('.q'))
+        var a = handler.answer(card, cardel.querySelector('.a'))
+
+        return Promise.all([q, a])
     }
-    var clear = () => {
+    var clear = (err) => {
+        console.log('Error', err)
         cardel.querySelector('.q').innerHTML = ''
         cardel.querySelector('.a').innerHTML = ''
         for(var x of $all('#right, #up, #down')) {

@@ -34,9 +34,13 @@ handler.answer = function (card, el) {
     el.innerHTML = `
         <div style="font-size: 2em">${card.a.kanji}</div>
         <div id="kanji"></div>
+        <br>
+        <ul id="parts"></ul>
     `
-    ajar.get(`/kanji/kanji/${card.a.kanji}/svg`).then((req) => {
-        el.querySelector('#kanji').innerHTML = req.responseText.replace(/^[\s\S]*\]>/,'')
+    var $ = el.querySelector
+
+    var svg = ajar.get(`/kanji/kanji/${card.a.kanji}/svg`).then(req => {
+        document.querySelector('#kanji').innerHTML = req.responseText.replace(/^[\s\S]*\]>/, '')
 
         var cp = card.a.kanji.codePointAt(0).toString(16)
         cp = '0'.repeat(5 - cp.length) + cp
@@ -54,16 +58,26 @@ handler.answer = function (card, el) {
         }
 
         var elpathstart = document.getElementById(`kvg:${cp}-s1`)
-        el.querySelector('#kanji').addEventListener('click', () => {
-            for (var elpath of document.querySelectorAll(`path`)) {
-                elpath.style.visibility = 'hidden'
-            }
+        document.querySelector('#kanji').addEventListener('click', () => {
+            // rant: querySelectorAll() not being an array is driving me nuts
+            [].forEach.call(document.querySelectorAll('path'), elpath => {elpath.style.visibility = 'hidden'})
 
             animate(elpathstart)
         })
-
-        //animate(document.getElementById(`kvg:${cp}-s1`))
     })
+
+    var parts = ajar.get(`/kanji/kanji/${card.a.kanji}/parts`)
+        .then(parts => {
+            var els = parts.map(part => {
+                var el = document.createElement('li')
+                el.append(part.a.kanji + ': ' + part.q.keyword)
+                return el
+            })
+            document.querySelector('#parts').append(...els)
+        })
+
+    return Promise.all([svg, parts])
+
 }
 
 handler.edit = function (card, form, cb) {
