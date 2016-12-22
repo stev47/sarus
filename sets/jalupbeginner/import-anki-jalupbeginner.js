@@ -55,8 +55,8 @@ Promise.using(dbsrc, mediasrc, db, (dbsrc, mediasrc, db) => {
                 sentence: data[0],
             },
             a: {
-                meaning: data[1],
-                reading: data[2],
+                meaning: data[1].replace(/(<div>)?\[sound[^\]]+\](<\/div>)?/, ''),
+                reading: data[2].replace(/([\u4E00-\u9FFF]+)\[([^\]]+)\]/g, '<ruby><rb>$1</rb><rt>$2</rt></ruby>'),
                 audio: null,
             },
         }

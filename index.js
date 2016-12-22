@@ -9,7 +9,7 @@ var app = express()
 
 app.use(bodyParser.json())
 
-app.set('view engine', 'jade')
+app.set('view engine', 'pug')
 app.set('views', __dirname + '/views')
 
 app.use('/css', express.static(__dirname + '/public/css'))
@@ -32,11 +32,13 @@ Promise.join(db, sets, (db, sets) => {
     var setrouter = express.Router()
 
     sets.forEach((set) => {
-        app.use('/' + set, require('./sets/' + set + '/server.js')(setrouter, db))
+        try {
+            app.use('/' + set, require(`./sets/${set}/server.js`)(setrouter, db))
+        } catch (err) {}
     })
 
     app.get('/:set', (req, res) => {
-        res.render('index')
+        res.render('index', {set: req.params.set})
     })
 
     app.post('/:set', (req, res) => {

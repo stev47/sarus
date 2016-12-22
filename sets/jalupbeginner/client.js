@@ -3,34 +3,21 @@
 
 var handler = {}
 
-handler.question = function (card, el) {
+handler.question = (card, el) => {
     el.innerHTML = `
-        <span id="sentence">${card.sentence}</span>
+        <span id="sentence">${card.q.sentence}</span>
     `
-
-    /*
-
-    // todo: filter out html tags
-    var jap = card.q.keyword.replace(/^[a-zA-Z,\.\-\(\) 　]+/, '')
-    //var keyword = card.q.keyword.replace(/([あ-ん]+)/g, '<span style="color: #e22">$1</span>')
-    var keyword = card.q.keyword
-    el.innerHTML = `
-        <span id="keyword">${keyword}</span>
-        <audio id="voice" src="/kanji/voice/${jap}"></audio>
-    `
-
-    el.querySelector('#keyword').addEventListener('click', () => {
-        el.querySelector('#voice').play()
-    })
-   */
 }
 
-handler.answer = function (card, el) {
+handler.answer = (card, el) => {
     el.innerHTML = `
-        <div id="meaning">${card.a.meaning}</div>
         <div id="reading">${card.a.reading}</div>
+        <div id="meaning">${card.a.meaning}</div>
         <audio id="audio" src="/jalupbeginner/${card.n}/audio"></audio>
     `
+    el.querySelector('#reading').addEventListener('click', () => {
+        el.querySelector('#audio').play()
+    })
 }
 
 /*

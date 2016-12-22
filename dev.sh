@@ -1,12 +1,13 @@
 #!/bin/bash
 
 
-node-sass -w css/main.scss public/css/main.css &
 
 for setdir in sets/*/; do
   setname=`basename $setdir`
+  [ $setname == "default" ] && continue;
 
-  watchify -r ./sets/$setname/client.js:handler js/main.js -o public/js/${setname}.js &
+  watchify -r ./sets/$setname/client.js:handler js/main.js -o public/js/$setname.js &
+  node-sass -w --include-path ./sets/$setname/ --include-path ./sets/default/ css/main.scss public/css/$setname.css &
 done
 
 

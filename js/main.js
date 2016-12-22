@@ -8,6 +8,8 @@ var $all = document.querySelectorAll.bind(document)
 var cardel;
 var card = {}
 
+var baseUrl = window.location.pathname //.split('/').slice(0,2).join('/')
+
 document.addEventListener('DOMContentLoaded', () => {
 
     cardel = $('#card')
@@ -37,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // TODO: don't hide errors thrown in `render` due to clear
     var seedmode = () => {
-        ajar.get('/kanji/seed').then((x) => render(x, true))
+        ajar.get(`${baseUrl}/seed`).then((x) => render(x, true))
             .then(() => {
                 $('#up').setAttribute('disabled', 'disabled')
                 $('#down').setAttribute('disabled', 'disabled')
@@ -47,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
             })
     }
     var reviewmode = () => {
-        ajar.get('/kanji/next').then((x) => render(x, false))
+        ajar.get(`${baseUrl}/next`).then((x) => render(x, false))
             .then(() => {
                 $('#right').removeAttribute('disabled')
             }, clear).then(() => {
@@ -56,14 +58,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     var seed = () => {
-        ajar.post(`/kanji/${card.n}/init`)
+        ajar.post(`${baseUrl}/${card.n}/init`)
             .then(seedmode)
     }
     var review = (value) => {
         for(var x of $all('#up, #down')) {
             x.setAttribute('disabled', 'disabled')
         }
-        ajar.post(`/kanji/${card.n}/update`, {value: value})
+        ajar.post(`${baseUrl}/${card.n}/update`, {value: value})
             .then(reviewmode)
     }
     var answer = () => {
