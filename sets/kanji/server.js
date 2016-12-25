@@ -17,7 +17,7 @@ module.exports = function (router, db) {
         fs.readFileAsync(__dirname + `/kanjivg/kanji/${cp}.svg`, 'utf8')
             .then(harnest.parse)
             .then($ => {
-                var chars = $('g[kvg\\:element]').map(el => el.attribs['kvg:element'])
+                var chars = $(`g[id="kvg:${cp}"] > g[kvg\\:element]`).map(el => el.attribs['kvg:element'])
                 db.collection('kanji')
                     .find({'a.kanji': {$in: chars}}).sort({n: 1}).toArrayAsync()
                     .then(x => res.send(x))

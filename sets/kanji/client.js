@@ -9,7 +9,7 @@ handler.question = function (card, el) {
     //var keyword = card.q.keyword.replace(/([あ-ん]+)/g, '<span style="color: #e22">$1</span>')
     var keyword = card.q.keyword
     el.innerHTML = `
-        <span id="keyword">${keyword}</span>
+        <span id="keyword"><a href="http://jisho.org/search/${jap}" target="_blank">${keyword}</a></span>
         <audio id="voice" src="/kanji/voice/${jap}"></audio>
     `
 
