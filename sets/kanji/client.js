@@ -10,12 +10,12 @@ handler.question = function (card, el) {
     var keyword = card.q.keyword
     el.innerHTML = `
         <span id="keyword"><a href="http://jisho.org/search/${jap}" target="_blank">${keyword}</a></span>
-        <audio id="voice" src="/kanji/voice/${jap}"></audio>
     `
+        //<audio id="voice" src="/kanji/voice/${jap}"></audio>
 
-    el.querySelector('#keyword').addEventListener('click', () => {
-        el.querySelector('#voice').play()
-    })
+    //el.querySelector('#keyword').addEventListener('click', () => {
+    //    el.querySelector('#voice').play()
+    //})
 }
 
 function animate (el) {
@@ -34,7 +34,6 @@ handler.answer = function (card, el) {
     el.innerHTML = `
         <div style="font-size: 2em">${card.a.kanji}</div>
         <div id="kanji"></div>
-        <br>
         <ul id="parts"></ul>
     `
     var $ = el.querySelector

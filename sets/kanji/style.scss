@@ -1,15 +1,17 @@
+.a > * {
+  float: left;
+}
 .a {
-  display: flex;
-  & div {
-    flex: 1 0;
-  }
-  & ul#parts {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    font-size: 0.6em;
-    text-align: left;
-  }
+  overflow: auto;
+}
+
+
+ul#parts {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.6em;
+  text-align: left;
 }
 
 #kanji {
@@ -21,4 +23,7 @@
     display: none;
   }
 }
+
+
+
 

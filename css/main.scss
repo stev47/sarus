@@ -39,8 +39,9 @@ a {
 /* Content */
 
 #container {
-  width: 100%;
-  max-width: 40rem;
+  width: 50%;
+  min-width: 40rem;
+  max-width: 60rem;
   margin: auto;
 }
 
@@ -63,12 +64,12 @@ a {
   }
 
   & .a {
+    display: none;
     margin-top: 1em;
-    visibility: hidden;
     border: 1px dashed #555;
   }
-  &.answer .a {
-    visibility: visible;
+  &.back .a {
+    display: block;
   }
 }
 

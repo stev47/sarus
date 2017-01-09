@@ -19,7 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
         var q = cardel.querySelector('.q')
         var a = cardel.querySelector('.a')
 
-        cardel.classList.toggle('answer', answer)
+        cardel.classList.toggle('back', answer)
+        cardel.classList.toggle('front', !answer)
 
         if (!ncard) throw new Error('no card')
 
@@ -69,7 +70,8 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(reviewmode)
     }
     var answer = () => {
-        cardel.classList.add('answer')
+        cardel.classList.add('back')
+        cardel.classList.remove('front')
         $('#up').removeAttribute('disabled')
         $('#down').removeAttribute('disabled')
         $('#right').setAttribute('disabled', 'disabled')
@@ -87,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
     var right = () => {
         if (cardel.classList.contains('seed')) {
             seed()
-        } else if (!cardel.classList.contains('answer')) {
+        } else if (!cardel.classList.contains('back')) {
             answer()
         }
     }
