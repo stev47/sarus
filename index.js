@@ -78,7 +78,7 @@ Promise.join(db, sets, (db, sets) => {
             .then((x) => res.json(x))
     })
 
-    app.listen(3001)
+    app.listen(3001, 'localhost')
 })
 
 
