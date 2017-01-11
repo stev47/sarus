@@ -32,6 +32,7 @@ Promise.join(db, sets, (db, sets) => {
     var setrouter = express.Router()
 
     sets.forEach((set) => {
+        // This is bad, we're missing out module errors
         try {
             app.use('/' + set, require(`./sets/${set}/server.js`)(setrouter, db))
         } catch (err) {}
