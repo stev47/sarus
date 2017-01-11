@@ -4,8 +4,12 @@ var ajar = require('ajar')
 var handler = {}
 
 handler.question = function (card, el) {
-    // todo: filter out html tags
-    var jap = card.q.keyword.replace(/^[a-zA-Z,\.\-\(\) 　]+/, '')
+    // dirty html tag stripping
+    var tmp = document.createElement('div');
+    tmp.innerHTML = card.q.keyword;
+    var tmp = tmp.textContent;
+
+    var jap = tmp.replace(/^[a-zA-Z,\.\-\(\) 　]+/, '')
     //var keyword = card.q.keyword.replace(/([あ-ん]+)/g, '<span style="color: #e22">$1</span>')
     var keyword = card.q.keyword
     el.innerHTML = `
