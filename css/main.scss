@@ -1,77 +1,12 @@
-/* General */
-
-* {
-  box-sizing: border-box;
+html {
+  font-family: sans-serif;
 }
-
-button {
-  padding: 0.3em 0.7em;
-}
-
-/* colortheme specific */
-
-body {
-  background: #202020;
-  color: #e2e2e5;
-}
-
-button {
-  display: none;
-  background: #000;
-  border: 1px solid #555;
-  border-radius: 0.2rem;
-  &:hover {
-    background: #222;
-  }
-  &:active {
-    background: #228;
-  }
-  &:disabled {
-    background: #222;
-    color: #999;
-  }
-}
-
-a {
-  color: inherit
-}
-
-/* Content */
-
-#container {
-  width: 50%;
-  min-width: 40rem;
-  max-width: 60rem;
-  margin: auto;
-}
-
 #card {
-  margin-top: 1rem;
-  padding: 0.8em;
-  border: 1px solid #555;
-  border-radius: 1rem;
-
+  width: 100%;
   text-align: center;
-  font-size: 2.5rem;
-
-  background: #202028;
-  &.seed {
-    background: #202520;
-  }
-
-  & div {
-    padding: 0.2em;
-  }
-
-  & .a {
-    display: none;
-    margin-top: 1em;
-    border: 1px dashed #555;
-  }
-  &.back .a {
-    display: block;
-  }
+  font-size: 1.5em;
 }
-
-/* set-specific stylesheet (include-path is set dynamically) */
-@import "style.scss";
+#card.q #a, #card.a:not(.e2jf) #q {
+  display: none;
+  visibility: hidden;
+}

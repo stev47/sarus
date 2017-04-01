@@ -11,6 +11,7 @@
 
 ## Algorithm
 
+- weighting by importance (first learn common vocab for a language)
 - probably really good: let update value depend on `dt`
 - calculate `b` and `c` (const?) update action from min/max parameter
 - tweak above min/max parameter: `ĥ(60s) = 1d`, `ĥ(7d) = 60s` doesn't seem good

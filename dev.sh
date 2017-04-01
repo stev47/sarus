@@ -1,17 +1,13 @@
 #!/bin/bash
 
 
-
-for setdir in sets/*/; do
+for setdir in src/*/; do
   setname=`basename $setdir`
   [ $setname == "default" ] && continue;
 
-  watchify -r ./sets/$setname/client.js:handler js/main.js -o public/js/$setname.js &
-  node-sass -w --include-path ./sets/$setname/ --include-path ./sets/default/ css/main.scss public/css/$setname.css &
+  watchify -r ./src/$setname/main.js:handler ./src/main.js -o build/$setname.js &
+  node-sass -w --include-path ./src/$setname/ --include-path ./src/default/ ./src/main.scss build/$setname.css &
 done
-
-
-nodemon --ignore '*.svg' index.js &
 
 sleep 0.5
 
