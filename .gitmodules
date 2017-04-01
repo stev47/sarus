@@ -1,3 +1,6 @@
 [submodule "sets/kanji/kanjivg"]
 	path = sets/kanji/kanjivg
 	url = https://github.com/KanjiVG/kanjivg.git
+[submodule "build"]
+	path = build
+	url = git@github.com:stev47/sarus.git
