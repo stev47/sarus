@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>sarus</title>
+  <link rel="stylesheet" href="build/main.css">
+  <script src="build/lokijs.js"></script>
+  <script src="build/main.js"></script>
+</head>
+<body>
+  <form id="cardmode">
+    <label>
+      <input type="radio" name="cardmode" value="j2fe" checked>
+      japanese → furigana + english
+    </label>
+    <label>
+      <input type="radio" name="cardmode" value="jf2e">
+      japanese + furigana → english
+    </label>
+    <label>
+      <input type="radio" name="cardmode" value="e2jf">
+      english → japanese + furigana
+    </label>
+  </form>
+  <div id="card"></div>
+  <button id="delete">delete</button>
+  <hr>
+  <div id="vocab">
+    <label>
+      japanese (with kanji) <br>
+      <input type="text" id="word">
+    </label>
+    <br>
+    <label>
+      english meaning <br>
+      <input type="text" id="meaning">
+    </label>
+    <ol id="reading">
+    </ol>
+    <button id="submit">add</button>
+  </div>
+  <hr>
+  <div id="control">
+    <button id="export">export</button>
+    <textarea id="dbdata"></textarea>
+    <button id="import">import</button>
+    <button id="clear">clear db</button>
+    <button id="reset">reset stats</button>
+  </div>
+</body>
+</html>
+
+
