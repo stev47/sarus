@@ -17,6 +17,8 @@ Promise.all([db, dom]).then(([db, dom]) => {
     var colWords = db.getCollection('words') || db.addCollection('words')
     var colKanji = db.getCollection('kanji') || db.addCollection('kanji')
 
+    window.addEventListener('beforeunload', e => db.close())
+
     var inputChange = e => {
         $('#reading').innerHTML = ''
 
@@ -113,9 +115,29 @@ Promise.all([db, dom]).then(([db, dom]) => {
 
     $('#import').addEventListener('click', e => {
         let x = $('#dbdata').value
+
+        let dbtmp = db
+
+        db = new loki('sarus.db', {
+            autosave: true,
+        })
         db.loadJSON(x)
+
+        colOldWords = colWords
+        colOldKanji = colKanji
+
         colWords = db.getCollection('words') || db.addCollection('words')
         colKanji = db.getCollection('kanji') || db.addCollection('kanji')
+
+        colWords.find().forEach(x => {
+            x = dataInit(x)
+            xOld = colOldWords.get(x.$loki)
+            x.data = (xOld)? xOld.data : x.data
+
+            console.log(x)
+            colWords.update(x)
+        })
+
         db.save()
         fetch(colWords)
         showQ(colWords)
